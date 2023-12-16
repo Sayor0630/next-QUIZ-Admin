@@ -13,8 +13,7 @@ import { RiInputMethodFill } from 'react-icons/ri';
 import { FaSave, FaUndo, FaTrash } from 'react-icons/fa';
 import { FaImage } from 'react-icons/fa'; // Import the desired icon
 import { FaCropSimple } from "react-icons/fa6";
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faSpinner } from '@fortawesome/free-solid-svg-icons';
+import Select from 'react-select';
 
 const MathQuillEditor = dynamic(() => import('react-mathquill'), { ssr: false });
 const ReactQuill = dynamic(() => import('react-quill'), { ssr: false });
@@ -496,6 +495,28 @@ const Admin = () => {
   const [explanationImages, setExplanationImages] = useState([]);
   const [optionImages, setOptionImages] = useState([]);
 
+
+
+  // Function to determine the content to be displayed in the select menu option
+const getOptionContent = (option, index) => {
+  return {
+    value: `${index}_${option.title}`, // Use a combination of index and title as a unique identifier
+    label: (
+      <div className="custom-select-option">
+        {option.croppedImage && (
+          <img
+            src={option.croppedImage}
+            alt={`Cropped for Option`}
+            className="rounded-lg border"
+            style={{ maxWidth: '100%', height: 'auto', marginRight: '8px' }}
+          />
+        )}
+        {option.title}
+      </div>
+    ),
+  };
+};
+  
 
   return (
     <>
@@ -997,26 +1018,28 @@ const Admin = () => {
                 <IoIosAddCircleOutline className="text-3xl" /> Add Option
               </button>
             </div>
+            
+            
             <label className="block mb-2">
-              <div className='flex flex-col'>
-                <p className='font-semibold text-lg'>Correct Option:</p>
-                <select
-                  value={question.correctOptionIndex}
-                  onChange={(e) => {
-                    const updatedQuestions = [...questions];
-                    updatedQuestions[questionIndex].correctOptionIndex = parseInt(e.target.value, 10);
-                    setQuestions(updatedQuestions);
-                  }}
-                  className="border border-[#808080] p-2 w-full min-h-12 rounded-md mt-3 bg-[#f1f3f4]"
-                >
-                  {question.options.map((option, index) => (
-                    <option key={index} value={index}>
-                      {option.title}
-                    </option>
-                  ))}
-                </select>
-              </div>
-            </label>
+    <div className='flex flex-col'>
+      <p className='font-semibold text-lg'>Correct Option:</p>
+      <Select
+        options={questions[questionIndex].options.map((option, index) => getOptionContent(option, index))}
+        value={getOptionContent(
+          questions[questionIndex].options[questions[questionIndex].correctOptionIndex],
+          questions[questionIndex].correctOptionIndex
+        )}
+        onChange={(selectedOption) => {
+          const selectedValue = selectedOption ? selectedOption.value : null;
+          const [selectedIndex] = selectedValue.split('_').map(Number);
+          const updatedQuestions = [...questions];
+          updatedQuestions[questionIndex].correctOptionIndex = selectedIndex;
+          setQuestions(updatedQuestions);
+        }}
+      />
+    </div>
+  </label>
+
 
             <label className="block mb-2">
               <div className='flex flex-col'>
