@@ -933,7 +933,7 @@ const Admin = () => {
                         className="rounded-lg border"
                         style={{ maxWidth: '100%', height: 'auto' }}
                       />
-                      <div className="flex mt-2">
+                      <div className="flex my-2">
                         {!option.imagePreview && (
                           <button
                             onClick={() => handleOptionRecrop(questionIndex, optionIndex)}
