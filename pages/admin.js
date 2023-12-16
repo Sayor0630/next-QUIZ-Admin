@@ -498,25 +498,25 @@ const Admin = () => {
 
 
   // Function to determine the content to be displayed in the select menu option
-const getOptionContent = (option, index) => {
-  return {
-    value: `${index}_${option.title}`, // Use a combination of index and title as a unique identifier
-    label: (
-      <div className="custom-select-option">
-        {option.croppedImage && (
-          <img
-            src={option.croppedImage}
-            alt={`Cropped for Option`}
-            className="rounded-lg border"
-            style={{ maxWidth: '100%', height: 'auto', marginRight: '8px' }}
-          />
-        )}
-        {option.title}
-      </div>
-    ),
+  const getOptionContent = (option, index) => {
+    return {
+      value: `${index}_${option.title}`, // Use a combination of index and title as a unique identifier
+      label: (
+        <div className="custom-select-option">
+          {option.croppedImage && (
+            <img
+              src={option.croppedImage}
+              alt={`Cropped for Option`}
+              className="rounded-lg border"
+              style={{ maxWidth: '100%', height: 'auto', marginRight: '8px' }}
+            />
+          )}
+          {option.title}
+        </div>
+      ),
+    };
   };
-};
-  
+
 
   return (
     <>
@@ -1018,27 +1018,27 @@ const getOptionContent = (option, index) => {
                 <IoIosAddCircleOutline className="text-3xl" /> Add Option
               </button>
             </div>
-            
-            
+
+
             <label className="block mb-2">
-    <div className='flex flex-col'>
-      <p className='font-semibold text-lg'>Correct Option:</p>
-      <Select
-        options={questions[questionIndex].options.map((option, index) => getOptionContent(option, index))}
-        value={getOptionContent(
-          questions[questionIndex].options[questions[questionIndex].correctOptionIndex],
-          questions[questionIndex].correctOptionIndex
-        )}
-        onChange={(selectedOption) => {
-          const selectedValue = selectedOption ? selectedOption.value : null;
-          const [selectedIndex] = selectedValue.split('_').map(Number);
-          const updatedQuestions = [...questions];
-          updatedQuestions[questionIndex].correctOptionIndex = selectedIndex;
-          setQuestions(updatedQuestions);
-        }}
-      />
-    </div>
-  </label>
+              <div className='flex flex-col'>
+                <p className='font-semibold text-lg'>Correct Option:</p>
+                <Select
+                  options={questions[questionIndex].options.map((option, index) => getOptionContent(option, index))}
+                  value={getOptionContent(
+                    questions[questionIndex].options[questions[questionIndex].correctOptionIndex],
+                    questions[questionIndex].correctOptionIndex
+                  )}
+                  onChange={(selectedOption) => {
+                    const selectedValue = selectedOption ? selectedOption.value : null;
+                    const [selectedIndex] = selectedValue.split('_').map(Number);
+                    const updatedQuestions = [...questions];
+                    updatedQuestions[questionIndex].correctOptionIndex = selectedIndex;
+                    setQuestions(updatedQuestions);
+                  }}
+                />
+              </div>
+            </label>
 
 
             <label className="block mb-2">
