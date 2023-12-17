@@ -1,7 +1,7 @@
 // Import necessary modules and styles
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
-import { CountdownTimer, playNotificationSound, showStyledNotification } from '@/utils/countdownUtils';
+import { CountdownTimer } from '@/pages/countdownUtils';
 
 // Your QuizPage component with integrated CountdownTimer
 const QuizPage = () => {
