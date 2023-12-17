@@ -1090,29 +1090,31 @@ const Admin = () => {
 
                   )}
 
-                  {/* Toggle button for explanation */}
-                  <button
-                    type="button"
-                    onClick={() => toggleExplanationInputType(questionIndex)}
-                    className="ml-0 md:ml-4 lg:ml-4 mt-0 btn btn-active btn-neutral w-full md:w-[10%]"
-                  >
-                    {explanationInputTypes[questionIndex] === "math" ? (
-                      <RiInputMethodFill className='text-3xl' />
-                    ) : (
-                      <PiMathOperationsBold className='text-3xl' />
-                    )}
-                  </button>
-                  <label className="btn btn-active btn-primary ml-2">
-                    <FaImage className="text-3xl" />
-                    <input
-                      ref={(ref) => (explanationInputRefs.current[questionIndex] = ref)}
-                      key={explanationInputKeys[questionIndex] || `explanation-input-${questionIndex}`}
-                      type="file"
-                      accept="image/*"
-                      style={{ display: 'none' }}
-                      onChange={(e) => handleExplanationImageUpload(e.target.files, questionIndex)}
-                    />
-                  </label>
+                  <div className='flex flex-row ml-0 md:ml-4 lg:ml-4 mt-0'>
+                    {/* Toggle button for explanation */}
+                    <button
+                      type="button"
+                      onClick={() => toggleExplanationInputType(questionIndex)}
+                      className="btn btn-active btn-neutral"
+                    >
+                      {explanationInputTypes[questionIndex] === "math" ? (
+                        <RiInputMethodFill className='text-3xl' />
+                      ) : (
+                        <PiMathOperationsBold className='text-3xl' />
+                      )}
+                    </button>
+                    <label className="btn btn-active btn-primary ml-2">
+                      <FaImage className="text-3xl" />
+                      <input
+                        ref={(ref) => (explanationInputRefs.current[questionIndex] = ref)}
+                        key={explanationInputKeys[questionIndex] || `explanation-input-${questionIndex}`}
+                        type="file"
+                        accept="image/*"
+                        style={{ display: 'none' }}
+                        onChange={(e) => handleExplanationImageUpload(e.target.files, questionIndex)}
+                      />
+                    </label>
+                  </div>
                 </div>
                 <div key={questionIndex} className="">
                   {question.explanationImagePreview && (
@@ -1182,8 +1184,6 @@ const Admin = () => {
                       </div>
                     </div>
                   )}
-
-                  {/* ... (other explanation inputs) */}
                 </div>
               </div>
             </label>
