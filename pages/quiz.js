@@ -38,6 +38,7 @@ const QuizPage = () => {
       {!loading &&
         quizzes.map((quiz, index) => (
         <div key={index} className="mb-8">
+          <p><span className='bg-info'>ID:-</span>{quiz._id}</p>
           <p><span className='text-xl'>Timer:</span> {quiz.duration} minutes</p>
           <p><span className='text-xl'>Total Marks:</span> {quiz.totalMarks}</p>
           {quiz.titleSections.map((titleSection, tsIndex) => (
