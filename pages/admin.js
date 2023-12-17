@@ -498,25 +498,25 @@ const Admin = () => {
 
 
   // Function to determine the content to be displayed in the select menu option
-const getOptionContent = (option, index) => {
-  return {
-    value: `${index}_${option.title}`, // Use a combination of index and title as a unique identifier
-    label: (
-      <div className="custom-select-option">
-        {option.croppedImage && (
-          <img
-            src={option.croppedImage}
-            alt={`Cropped for Option`}
-            className="rounded-lg border"
-            style={{ maxWidth: '100%', height: 'auto', marginRight: '8px' }}
-          />
-        )}
-        {option.title}
-      </div>
-    ),
+  const getOptionContent = (option, index) => {
+    return {
+      value: `${index}_${option.title}`, // Use a combination of index and title as a unique identifier
+      label: (
+        <div className="custom-select-option">
+          {option.croppedImage && (
+            <img
+              src={option.croppedImage}
+              alt={`Cropped for Option`}
+              className="rounded-lg border"
+              style={{ maxWidth: '100%', height: 'auto', marginRight: '8px' }}
+            />
+          )}
+          {option.title}
+        </div>
+      ),
+    };
   };
-};
-  
+
 
   return (
     <>
@@ -1018,27 +1018,27 @@ const getOptionContent = (option, index) => {
                 <IoIosAddCircleOutline className="text-3xl" /> Add Option
               </button>
             </div>
-            
-            
+
+
             <label className="block mb-2">
-    <div className='flex flex-col'>
-      <p className='font-semibold text-lg'>Correct Option:</p>
-      <Select
-        options={questions[questionIndex].options.map((option, index) => getOptionContent(option, index))}
-        value={getOptionContent(
-          questions[questionIndex].options[questions[questionIndex].correctOptionIndex],
-          questions[questionIndex].correctOptionIndex
-        )}
-        onChange={(selectedOption) => {
-          const selectedValue = selectedOption ? selectedOption.value : null;
-          const [selectedIndex] = selectedValue.split('_').map(Number);
-          const updatedQuestions = [...questions];
-          updatedQuestions[questionIndex].correctOptionIndex = selectedIndex;
-          setQuestions(updatedQuestions);
-        }}
-      />
-    </div>
-  </label>
+              <div className='flex flex-col'>
+                <p className='font-semibold text-lg'>Correct Option:</p>
+                <Select
+                  options={questions[questionIndex].options.map((option, index) => getOptionContent(option, index))}
+                  value={getOptionContent(
+                    questions[questionIndex].options[questions[questionIndex].correctOptionIndex],
+                    questions[questionIndex].correctOptionIndex
+                  )}
+                  onChange={(selectedOption) => {
+                    const selectedValue = selectedOption ? selectedOption.value : null;
+                    const [selectedIndex] = selectedValue.split('_').map(Number);
+                    const updatedQuestions = [...questions];
+                    updatedQuestions[questionIndex].correctOptionIndex = selectedIndex;
+                    setQuestions(updatedQuestions);
+                  }}
+                />
+              </div>
+            </label>
 
 
             <label className="block mb-2">
@@ -1090,29 +1090,31 @@ const getOptionContent = (option, index) => {
 
                   )}
 
-                  {/* Toggle button for explanation */}
-                  <button
-                    type="button"
-                    onClick={() => toggleExplanationInputType(questionIndex)}
-                    className="ml-0 md:ml-4 lg:ml-4 mt-0 btn btn-active btn-neutral w-full md:w-[10%]"
-                  >
-                    {explanationInputTypes[questionIndex] === "math" ? (
-                      <RiInputMethodFill className='text-3xl' />
-                    ) : (
-                      <PiMathOperationsBold className='text-3xl' />
-                    )}
-                  </button>
-                  <label className="btn btn-active btn-primary ml-2">
-                    <FaImage className="text-3xl" />
-                    <input
-                      ref={(ref) => (explanationInputRefs.current[questionIndex] = ref)}
-                      key={explanationInputKeys[questionIndex] || `explanation-input-${questionIndex}`}
-                      type="file"
-                      accept="image/*"
-                      style={{ display: 'none' }}
-                      onChange={(e) => handleExplanationImageUpload(e.target.files, questionIndex)}
-                    />
-                  </label>
+                  <div className='flex flex-row ml-0 md:ml-4 lg:ml-4 mt-0'>
+                    {/* Toggle button for explanation */}
+                    <button
+                      type="button"
+                      onClick={() => toggleExplanationInputType(questionIndex)}
+                      className="btn btn-active btn-neutral"
+                    >
+                      {explanationInputTypes[questionIndex] === "math" ? (
+                        <RiInputMethodFill className='text-3xl' />
+                      ) : (
+                        <PiMathOperationsBold className='text-3xl' />
+                      )}
+                    </button>
+                    <label className="btn btn-active btn-primary ml-2">
+                      <FaImage className="text-3xl" />
+                      <input
+                        ref={(ref) => (explanationInputRefs.current[questionIndex] = ref)}
+                        key={explanationInputKeys[questionIndex] || `explanation-input-${questionIndex}`}
+                        type="file"
+                        accept="image/*"
+                        style={{ display: 'none' }}
+                        onChange={(e) => handleExplanationImageUpload(e.target.files, questionIndex)}
+                      />
+                    </label>
+                  </div>
                 </div>
                 <div key={questionIndex} className="">
                   {question.explanationImagePreview && (
@@ -1182,8 +1184,6 @@ const getOptionContent = (option, index) => {
                       </div>
                     </div>
                   )}
-
-                  {/* ... (other explanation inputs) */}
                 </div>
               </div>
             </label>
